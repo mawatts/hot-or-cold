@@ -17,7 +17,7 @@ $(document).ready(function(){
 
  /*--- Generate a random number between 1 and 100 ---*/
  function randomNumber() {
-  rndNumber = Math.floor(Math.random()*100+1);
+  rndNumber = Math.floor((Math.random()*100)+1);
  }
 
  /*--- User Input Function ---*/
@@ -35,13 +35,66 @@ $(document).ready(function(){
   }
   else {
    feedback();
-   
+   addCount();
   }
  });
 
- /*---  ---*/
+ /*--- Feedback function based on User's Guess ---*/
  function feedback() {
-  
+  var difference = Math.abs(guess - rndNumber);
+  var prevGuess;
+  var prevDifference = Math.abs(prevGuess - rndNumber);
+
+  if(guess > rndNumber || guess < rndNumber) {
+   if (totalGuesses == 0) {
+    if (difference >= 50) {
+     alert("Freezing");
+    }
+    else if (difference >= 40) {
+     alert("Ice Cold");
+    }
+    else if (difference >= 30) {
+     alert("Cold");
+    }
+    else if (difference >= 20) {
+     alert("Warm");
+    }
+    else if (difference >= 10) {
+     alert("Burning up");
+    }
+    else {
+     alert("On Fire");
+    }
+    prevGuess = guess;
+   }
+   else {
+    if (difference < prevDifference) {
+     if (guess > rndNumber) {
+      alert("Warmer, guess lower");
+     }
+     else {
+      alert("Warmer, guess higher");
+     }
+    }
+    else {
+     if (guess > rndNumber) {
+      alert("Colder, guess lower");
+     }
+     else {
+      alert("Colder, guess higher");
+     }
+    }
+   }
+  }
+  else {
+   alert("You guessed the right number!");
+  }
+ }
+
+ /*--- Increment Guess count and append guess count ---*/
+ function addCount() {
+  totalGuesses++;
+  $("#count").text(totalGuesses);
  }
 
  /*--- Start a new game on click of New Game button ---*/
