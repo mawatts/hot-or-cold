@@ -44,6 +44,7 @@ $(document).ready(function(){
    feedback();
    addCount();
    clearInput();
+   addGuess();
   }
  });
 
@@ -116,6 +117,11 @@ $(document).ready(function(){
  function addCount() {
   totalGuesses++;
   $("#count").text(totalGuesses);
+ }
+
+ /*--- Append guess to the Guess List ---*/
+ function addGuess() {
+  $("#guessList").append("<li>" + guess + "</li>")
  }
 
  /*--- Start a new game on click of New Game button ---*/
