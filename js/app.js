@@ -24,22 +24,26 @@ $(document).ready(function(){
 
  /*--- User Input Function ---*/
  $('#guessButton').click(function(e) {
-  event.preventDefault();
-  alert(rndNumber);
+  e.preventDefault();
+  
   guess = +$('#userGuess').val();
   
   if(guess=="" || guess > 100) {
    alert("Please enter a number between 1 and 100!");
+   clearInput();
   }
   else if(isNaN(guess)) {
    alert("Please enter a numeric value!");
+   clearInput();
   }
   else if(guess % 1 != 0){
    alert("Please enter a whole number and not a decimal!");
+   clearInput();
   }
   else {
    feedback();
    addCount();
+   clearInput();
   }
  });
 
@@ -103,6 +107,11 @@ $(document).ready(function(){
   }
  }
 
+ /*--- Clear input field value so placeholder text displays again ---*/
+ function clearInput() {
+  $(".text").val('').focusout();
+ }
+
  /*--- Increment Guess count and append guess count ---*/
  function addCount() {
   totalGuesses++;
@@ -110,12 +119,14 @@ $(document).ready(function(){
  }
 
  /*--- Start a new game on click of New Game button ---*/
- function newGame() {
-  /*--- Call random number generator function ---*/
+ $('.new').click(function() {
+  var totalGuesses = 0;
+
+  $("#count").text("0");
+  $(".guessBox").empty();
+  $("#feedback").text("Make your Guess!");
+  
+  clearInput();
   randomNumber();
-
-  /*--- Clear content for new game start ---*/
-
- }
-
+ });
 });
