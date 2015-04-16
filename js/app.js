@@ -20,8 +20,12 @@ $(document).ready(function(){
   rndNumber = Math.floor((Math.random()*100)+1);
  }
 
+ randomNumber();
+
  /*--- User Input Function ---*/
- $('#guessButton').click(function() {
+ $('#guessButton').click(function(e) {
+  event.preventDefault();
+  alert(rndNumber);
   guess = +$('#userGuess').val();
   
   if(guess=="" || guess > 100) {
@@ -68,20 +72,28 @@ $(document).ready(function(){
     prevGuess = guess;
    }
    else {
-    if (difference < prevDifference) {
+    if (difference > prevDifference) {
      if (guess > rndNumber) {
-      alert("Warmer, guess lower");
+      alert("You're Colder, guess lower");
      }
      else {
-      alert("Warmer, guess higher");
+      alert("You're Colder, guess higher");
+     }
+    }
+    else if (difference < prevDifference) {
+     if (guess > rndNumber) {
+      alert("You're Warmer, guess lower");
+     }
+     else {
+      alert("You're Warmer, guess higher");
      }
     }
     else {
      if (guess > rndNumber) {
-      alert("Colder, guess lower");
+      alert("You're on fire, guess a little lower");
      }
      else {
-      alert("Colder, guess higher");
+      alert("You're on fire, guess a little higher");
      }
     }
    }
