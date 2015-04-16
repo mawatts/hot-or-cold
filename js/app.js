@@ -51,60 +51,59 @@ $(document).ready(function(){
  /*--- Feedback function based on User's Guess ---*/
  function feedback() {
   var difference = Math.abs(guess - rndNumber);
-  var prevGuess;
+  var prevGuess = +$("#guessList li").last().text();
   var prevDifference = Math.abs(prevGuess - rndNumber);
 
   if(guess > rndNumber || guess < rndNumber) {
    if (totalGuesses == 0) {
     if (difference >= 50) {
-     alert("Freezing");
+     addFeedback("Freezing", "#B9D5FF");
     }
     else if (difference >= 40) {
-     alert("Ice Cold");
+     addFeedback("Ice Cold", "#33AEFF");
     }
     else if (difference >= 30) {
-     alert("Cold");
+     addFeedback("Cold", "#333DFF");
     }
     else if (difference >= 20) {
-     alert("Warm");
+     addFeedback("Warm", "#FFDD2C");
     }
     else if (difference >= 10) {
-     alert("Burning up");
+     addFeedback("Burning Up", "#FF4705");
     }
     else {
-     alert("On Fire");
+     addFeedback("On Fire", "#FF0700");
     }
-    prevGuess = guess;
    }
    else {
     if (difference > prevDifference) {
      if (guess > rndNumber) {
-      alert("You're Colder, guess lower");
+      addFeedback("You're Colder, guess lower", "#333DFF");
      }
      else {
-      alert("You're Colder, guess higher");
+      addFeedback("You're Colder, guess higher", "#333DFF");
      }
     }
     else if (difference < prevDifference) {
      if (guess > rndNumber) {
-      alert("You're Warmer, guess lower");
+      addFeedback("You're Warmer, guess lower", "#FF4705");
      }
      else {
-      alert("You're Warmer, guess higher");
+      addFeedback("You're Warmer, guess higher", "#FF4705");
      }
     }
     else {
      if (guess > rndNumber) {
-      alert("You're on fire, guess a little lower");
+      addFeedback("You're on fire, guess lower", "#FF0700");
      }
      else {
-      alert("You're on fire, guess a little higher");
+      addFeedback("You're on fire, guess higher", "#FF0700");
      }
     }
    }
   }
   else {
-   alert("You guessed the right number!");
+   addFeedback("You guessed the right number!", "#07CC34");
   }
  }
 
@@ -124,14 +123,20 @@ $(document).ready(function(){
   $("#guessList").append("<li>" + guess + "</li>")
  }
 
+ /*--- Change Feedback text ---*/
+ function addFeedback(txt, hexColor) {
+  $("#feedback").text(txt);
+  $("h2").css("background", hexColor);
+ }
+
  /*--- Start a new game on click of New Game button ---*/
  $('.new').click(function() {
-  var totalGuesses = 0;
+  totalGuesses = 0;
 
   $("#count").text("0");
   $(".guessBox").empty();
-  $("#feedback").text("Make your Guess!");
-  
+
+  addFeedback("Make your Guess!", "#89B25D");
   clearInput();
   randomNumber();
  });
